@@ -19,7 +19,7 @@ Bind your equirectangular image URL.
 Of course, you can bind an observable.
 
 ```html
-<div data-bind="theta: imageUrl()"></div>
+<div data-bind="theta: imageUrl"></div>
 ```
 
 ```javascript
