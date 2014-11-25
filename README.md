@@ -40,7 +40,7 @@ You can also pass optional parameters - `thetaWheelZoom` and `thetaLoading`.
 Enable or disable zoom on corresponding element.
 
 ```html
-<div data-bind="theta: imageUrl(), thetaWheelZoom: zoomEnabled"></div>
+<div data-bind="theta: imageUrl, thetaWheelZoom: zoomEnabled"></div>
 ```
 
 ```javascript
@@ -60,7 +60,7 @@ ko.applyBindings(new ThetaViewModel());
 Know the loading is started, or completed.
 
 ```html
-<div data-bind="theta: imageUrl(), thetaLoading: isLoading"></div>
+<div data-bind="theta: imageUrl, thetaLoading: isLoading"></div>
 
 <p data-bind="visible: isLoading">Now loading...</p>
 <p data-bind="visible: !isLoading()">Loading completed!</p>
