@@ -1,0 +1,92 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<title>THETA BINDING</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/whirl.min.css"/>
+	<link rel="stylesheet" href="css/app.css"/>
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script src="js/knockout-3.2.0.js"></script>
+	<script src="js/three.min.js"></script>
+	<script src="js/knockout.theta.js"></script>
+	<script src="js/app.js"></script>
+</head>
+<body>
+
+<div class="container-fluid">
+	<div class="jumbotron">
+		<h1>RICHO THETA Knockout.js Binding</h1>
+		<p>
+			<a class="btn btn-primary" href="https://github.com/sukobuto/knockout.theta">View on Github</a>
+		</p>
+		<p>
+			<a href="https://theta360.com/">RICOH THETA</a> で撮影した全天球写真をプレビューするためのバインディングハンドラです。<br>
+			全天球画像への URL をバインドするだけで簡単に表示できます。<br>
+			バインディング自体の機能は画像の球体表示とドラッグによる視点移動、およびホイール（スクロール）によるズーム調整のみです。
+			このサンプルの画面操作機能（左右のページ送り・中央のズーム可能エリア）はこのサンプルコードをコピペするか、独自に追加してください。
+		</p>
+		<p>
+			<a href="http://threejs.org/">three.js</a> および jQuery に依存しています。
+		</p>
+	</div>
+	
+	<h2>
+		全天球写真プレビュー
+		<small>
+			マウスで写真を<a href="http://wordkihon.nobody.jp/doradoro.html" target="_blank">ドラッグ</a>すると視点を動かせます。
+		</small>
+	</h2>
+	
+	<div id="theta-container" class="embed-responsive embed-responsive-16by9"
+			 data-bind="theta: 'contents/equirectangulars/' + selectedImage(),
+				 						thetaWheelZoom: wheelZoom,
+				  					thetaLoading: loading">
+		<div class="controls" data-bind="css:{ whirl: loading }">
+			<div class="prev" data-bind="click: prev" title="前の写真">
+				<i class="fa fa-chevron-left"></i>
+			</div>
+			<div class="next" data-bind="click: next" title="次の写真">
+				<i class="fa fa-chevron-right"></i>
+			</div>
+			<div class="number" data-bind="text: selectedNumber"></div>
+			<div class="zoomCircle" data-bind="event:{ mouseover: switchWheel(true), mouseout: switchWheel(false) }">
+				ZOOM<br>with mouse wheel
+			</div>
+		</div>
+	</div>
+	<div class="well well-sm">
+		左右のボタンをクリックするか、下のサムネイルをクリックすると別の写真を見ることができます。
+	</div>
+	<div id="image-selector" class="row" data-bind="foreach: images">
+		<div class="col-xs-4 col-md-2">
+			<a href="#theta-container" class="thumbnail"
+				 data-bind="click: $parent.select,
+			 							attr:{ title: $index() + 1 },
+			  						css:{ selected: $data == $parent.selectedImage() }">
+				<img data-bind="attr:{ src: 'contents/thumbnails/' + $data }">
+			</a>
+		</div>
+	</div>
+	<footer>
+		sample images &copy; <a href="http://sukobuto.com">sukobuto.com</a> 
+	</footer>
+</div>
+
+<script>
+	var app = new AppViewModel({
+		images: [
+			'R0010153.JPG',
+			'R0010170.JPG',
+			'R0010207.JPG',
+			'R0010372.jpg'
+		]
+	});
+	ko.applyBindings(app);
+</script>
+
+</body>
+</html>
